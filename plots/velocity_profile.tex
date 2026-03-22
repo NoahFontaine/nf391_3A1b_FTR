@@ -20,7 +20,6 @@
     legend pos=north west,
     table/col sep=comma,
 ]
-
     % --- 1. Define the Uncertainty Region ---
     % We create two invisible plots to serve as the boundaries
     \addplot[name path=upper, draw=none, forget plot] table [x expr=\thisrow{u_bar_U} + \thisrow{x_error}, y=Dist] {data/velocity_profile.csv};

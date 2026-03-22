@@ -22,11 +22,12 @@
 \bibliographystyle{plain}
 \usepackage{cleveref}
 \usepackage{physics}
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 \usepackage{overpic}
 \usepackage[normalem]{ulem}
 \captionsetup[sub]{textfont=it,font=footnotesize,justification=centering}
-
+\usetikzlibrary{intersections}
+\usepgfplotslibrary{fillbetween}
 
 \geometry{margin=2cm}
 
@@ -94,11 +95,10 @@ Lastly, the boundary layer velocity profile is characterized for the tripped flo
 \section{Results and Discussion}
 
 \begin{center}
-    \underline{\bf{NOTE}}: A table of all the symbols used in this lab -- as well as their units and their definitions -- is provided in Appendix \ref{app:symbols}.
+    A table of all the symbols used in this lab -- as well as their units and their definitions -- is provided in Appendix \ref{app:symbols}.
 \end{center}
 
 \subsection{Observation of transition}
-
 
 \subsubsection{Flow development with Reynolds Number}
 
@@ -178,9 +178,9 @@ Lastly, the boundary layer velocity profile is characterized for the tripped flo
      \label{fig:flow development graphs}
 \end{figure}
 
-\Cref{fig:flow development graphs} shows the raw local velocity on a wall-normal distance of $y=0.5$ \unit{\mm}, as measured using the hot wire voltage signals during runs with different surface distributions (smooth plate, roughness element, tripwire) and at different freestream velocities $\bar{U}_1$. At low flow speeds (\ref{fig:lam smooth}, \ref{fig:lam rough}, and \ref{fig:laminar trip}), the flow is laminar and the signal does not have any high frequency components. As the freestream velocity starts to increase, intermittent patches of turbulence start to appear (\ref{fig:transition smooth}, \ref{fig:transition rough}, \ref{fig:transition trip}). These patches are very short, on the order of 50 \unit{\ms}. As the Reynolds number increases further, these turbulent eddies start making up the whole signal, which now contains a lot of high frequency components (\ref{fig:turbulent smooth}, \ref{fig:turbulent rough}, \ref{fig:turbulent trip}).
+\underline{\bf{NOTE}}: Data and plots for the end of transition region were unfortunately not obtained during the lab. It was very difficult to get qualitative data for the transition region with the tripwire installed, as the transition from fully laminar to fully turbulent flow was very sudden in this configuration.
 
-It was very difficult to get qualitative data for the transition region with the tripwire installed, as the transition from fully laminar to fully turbulent flow was very sudden in this configuration.
+\Cref{fig:flow development graphs} shows the raw local velocity on a wall-normal distance of $y=0.5$ \unit{\mm}, as measured using the hot wire voltage signals during runs with different surface distributions (smooth plate, roughness element, tripwire) and at different freestream velocities $\bar{U}_1$. At low flow speeds (\ref{fig:lam smooth}, \ref{fig:lam rough}, and \ref{fig:laminar trip}), the flow is laminar and the signal does not have any high frequency components. As the freestream velocity starts to increase, intermittent patches of turbulence start to appear (\ref{fig:transition smooth}, \ref{fig:transition rough}, \ref{fig:transition trip}). These patches are very short, on the order of 50 \unit{\ms}. As the Reynolds number increases further, these turbulent eddies start making up the whole signal, which now contains a lot of high frequency components (\ref{fig:turbulent smooth}, \ref{fig:turbulent rough}, \ref{fig:turbulent trip}).
 
 The values of the Reynolds number at which all these transitions occur is presented in \Cref{fig:turbulent transition}:
 
@@ -191,38 +191,36 @@ The values of the Reynolds number at which all these transitions occur is presen
     \label{fig:turbulent transition}
 \end{figure}
 
-The roughness element and the tripwire have a huge effect on the value of the Reynolds number at which the flow starts to transition into turbulence, as implied by \Cref{fig:turbulent transition}. Adding either decreases that number from around 1.00 $\times 10^6$ to 6.93 $\times 10^5$ for the roughness element, down all the way to 1.96 $\times 10^5$ for the tripwire. The flow is also fully turbulent much sooner ($Re = 1.42 \times 10^6$ down to $7.47 \times 10^5$ and $7.14 \times 10^5$ respectively), although the nature of tDefault branchhe source of turbulence doesn't seem to have a big impact.
+The roughness element and the tripwire have a huge effect on the value of the Reynolds number at which the flow starts to transition into turbulence, as implied by \Cref{fig:turbulent transition}. Adding either decreases that number from around 1.00 $\times 10^6$ to 6.93 $\times 10^5$ for the roughness element, down all the way to 1.96 $\times 10^5$ for the tripwire. The flow is also fully turbulent much sooner ($Re = 1.42 \times 10^6$ down to $7.47 \times 10^5$ and $7.14 \times 10^5$ respectively), although the nature of the source of turbulence doesn't seem to have a big impact.
 
 It was relatively difficult to access exactly when transition occurred, especially for the tripwire measurements, as these took place at low Reynolds numbers and therefore very low low freestream velocities. The main source of uncertainty regarding Reynolds number calculations came from the precision of the pitot tube which calculates the dynamic head of the freestream flow.
 
+\begin{wrapfigure}[19]{r}{0.48\textwidth}
+    \centering
+    \vspace{-2em}
+    \includegraphics[width=0.92\linewidth]{pictures/eddy_length_2.jpeg}
+    \caption{Number of eddies found in 0.1 \unit{\second}}
+    \label{fig:eddy}
+\end{wrapfigure}
+
 \subsubsection{Turbulent eddy size}
 
-The size of eddies in the turbulent flow was estimated by evaluating their time period in \Cref{fig:flow development graphs}, more specifically \ref{fig:turbulent smooth}. This was found by gauging the time period of as many oscillations as possible $T_N$ (as shown in \Cref{fig:eddy}), dividing by the number of periods $N$ and multiplying by the speed of the local flow $\bar{u}$ measured by the probe:
+The size of eddies in the turbulent flow was estimated by evaluating their time period in \Cref{fig:flow development graphs}, more specifically \ref{fig:turbulent smooth}. This was found by gauging the time period of as many oscillations as possible $T_N$ (as shown in \Cref{fig:eddy}), dividing by the number of periods $N$ and multiplying by the mean 10 \unit{s} speed of the local flow $\bar{u}$ measured by the probe
 \begin{equation}
     \lambda = \frac{T_N}{N} \bar{u}
     \label{eq:eddies}
 \end{equation}
 \Cref{fig:eddy} shows 20 eddies present in time period of 0.1 \unit{\second}. The freestream mean velocity $\bar{U_1}$ was calculated to be 18.5 \unit{\metre \per \second} (its dynamic head being measured at 2.1 \unit{\milli \bar}). Therefore, from (\ref{eq:eddies}), the average size of a typical eddy in turbulent flow on a smooth plate is around 6.01 \unit{\cm}. This measurement is very approximate and it was difficult to accurately count the number of peaks in the signal analyzed in \Cref{fig:eddy}. Furthermore, due to the stochastic nature of turbulence many more sections would need to be inspected and averaged in order to get an accurate and precise measurement.
 
-\begin{figure}[htbp]
-    % --- First Plot ---
-    \begin{minipage}{0.48\linewidth}
-        \centering
-        \includegraphics[width=0.92\linewidth]{pictures/eddy_length_2.jpeg}
-        \caption{Number of eddies found in 0.1 \unit{\second}}
-        \label{fig:eddy}
-    \end{minipage}
-    \hfill
-    % --- Second Plot ---
-    \begin{minipage}{0.48\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{pictures/wedges.jpg}
-        \caption{Sketch of the transitional and fully turbulent wakes left by the roughness element.}
-        \label{fig:wedge}
-    \end{minipage}
-\end{figure}
-
 \subsubsection{Turbulent wedge profile}
+\label{sec:turbulent wedge profile}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/wedges_4.png}
+    \caption{Measurement of the transitional and turbulent wakes left by the roughness element (left-running flow). Adapted from \cite{chu2012investigation}.}
+    \label{fig:wedge}
+\end{figure}
 
 \Cref{fig:wedge} shows the width of the wake left by the roughness element, measured 212 \unit{\mm} and 603 \unit{\mm} behind it. It can be seen that the transition between laminar and turbulent flow is rather sudden as the intermittent 'transitional' zone is quite narrow (0.8 \unit{\mm} and 1.1 \unit{\mm} at the two measurement coordinates). The measurements in \Cref{fig:wedge} imply that the wedge angles $X_{turb}$ and $X_{trans}$ are 8.10 \unit{\degree} and 12.38 \unit{\degree} respectively. What is interesting is that these wedge angles seem to increase the further the wake gets to the roughness element. Indeed, using the measurements taken 603 \unit{\mm} behind, $X_{turb}$ and $X_{trans}$ increase to 13.80 \unit{\degree} and 15.86 \unit{\degree} respectively.
 
@@ -238,15 +236,78 @@ The size of eddies in the turbulent flow was estimated by evaluating their time 
 
 With the tripwire attached to the leading edge of the plate, the 10 \unit{\second} mean of the local velocity $\bar{u}$ and the RMS of the recorded velocity $u'$ were measured at different distances normal to the surface of the plate $y$, and normalized by the freestream mean flow velocity $\bar{U}_1$. This data creates a boundary layer velocity profile that can be seen in \Cref{fig:velocity profile}.
 
-The velocity profile recorded is typical of that found in a turbulent boundary layer -- the initial velocity ratio is very high, which implies a high value of $\dv{u}{y}$ and therefore also a high wall shear stress $\tau_w$. This matches the expectation that the recorded flow is fully turbulent ($Re_x=9.51\times 10^5$ which is greater than the $7.14 \times 10^5$ value in \Cref{fig:turbulent transition}). The high shear stress at the wall $\tau_w$ is a result of increased momentum transfer between vertical levels in the boundary layer, due to eddies and vorticity which increase the local velocity closer to the wall and decrease it further from it. This is why turbulent boundary layers are thicker than laminar ones.
+The velocity profile recorded is typical of that found in a turbulent boundary layer -- the initial velocity ratio is very high, which implies a high value of $\dv{\bar{u}}{y}$ and therefore also a high wall shear stress $\tau_w$. This matches the expectation that the recorded flow is fully turbulent ($Re_x=9.51\times 10^5$ which is greater than the $7.14 \times 10^5$ value in \Cref{fig:turbulent transition}). The high shear stress at the wall $\tau_w$ is a result of increased momentum transfer between vertical levels in the boundary layer, due to eddies and vorticity which increase the local velocity closer to the wall and decrease it further from it. This is why turbulent boundary layers are thicker than laminar ones.
 
 Due to the high precision of the micrometer, the error in $y$ is very low and error bars are barely noticeable. Fluctuations in local flow velocity $u'$ seem to stay pretty constant close to the wall (distance $y \lessapprox 15$ \unit{\mm}), but decreases closer to the boundary surface and is essentially null at the surface. This makes sense -- the freestream velocity $U_1$ is constant and the freestream flow is expected to be laminar.
 
-\subsection{Skin friction}
+\subsection{Characterization of the turbulent boundary layer profile and its properties}
+
+In order to extract boundary layer properties from the measured velocity profile, including the displacement thickness $\delta^*$, momentum thickness $\theta$, shape factor $H$, and wall shear stress $\tau_w$, the experimental data is first compared against canonical turbulent boundary layer scaling laws. 
+
+In \Cref{sec: canonical profiles} least-squares fits are initially applied to the data to obtain a smooth representation of the velocity profile, which are refined to satisfy the expected boundary conditions at the wall and in the outer flow. They will be ranked according to their correlation of determination coefficients $R^2$. The resulting profile is then assessed against the logarithmic overlap law in \Cref{sec: log law} to evaluate its K\'arm\'an and additive constants.
+
+\subsubsection{Assessment against canonical turbulent boundary layer profiles}
+\label{sec: canonical profiles}
+
+The quadratic fit shown in the velocity profile found in \Cref{fig:velocity profile} (equation shown in (\ref{eq:quadratic fit})) has the highest correlation of determination $R^2=0.9971$ out of any simple model, but is not physically accurate. Indeed, it does not fulfill the two necessary boundary conditions.
+
+\begin{enumerate*}[itemjoin={\hspace{16em}}]
+    \item $\displaystyle \lim_{y \to 0^+} \bar{u} = 0$
+    \item $\displaystyle \lim_{y \to \infty} {\bar{u}} = U_1$
+\end{enumerate*}
+
+Two similarity solutions are found that satisfy these boundary conditions. These are non-dimensionalised and put in the form
+\begin{equation}
+    \eta = f\bigg(\frac{\bar{u}}{U_1}\bigg) \iff \frac{\bar{u}}{U_1} = g(\eta) ; \quad \eta = \frac{y}{\delta} 
+\end{equation}
+where $\delta$ is the approximate 99\% thickness of the boundary layer. It takes value $\approx 17.22$ \unit{\mm} using the simple quadratic fit found in \Cref{fig:velocity profile}
+\begin{equation}
+    \eta \approx -9.488 \times 10^{-4} \bigg( \frac{\bar{u}}{U_1} \bigg)^2 + 3.746 \times 10^{-2} \bigg( \frac{\bar{u}}{U_1} \bigg) + 0.6262
+    \label{eq:quadratic fit}
+\end{equation}
+Generally, for turbulent boundary layers on a flat plate with zero pressure gradient, the boundary layer thickness grows with distance using Prandtl's 1/7th Power Law \cite{beltran2019boundarylayerthickness} as
+\begin{equation}
+    \delta(x) = \frac{0.37 x}{Re_x^{1/5}} \approx 26.89 \hspace{0.4em} \unit{\mm}
+    \label{eq:thickness}
+\end{equation}
+The measured thickness $\delta$ is noticeably smaller than what is expected from (\ref{eq:thickness}), implying that unlike what was assumed in \Cref{sec:turbulent wedge profile}, the boundary layer does not become fully turbulent directly aft of the wedge roughness element. Instead it stays in a laminar or transition region (where $\delta$ is thinner grows more slowly with distance), before full transitioning into the turbulent region. According to \cite{beltran2019boundarylayerthickness} this transition typically occurs at $10^5 \leq Re_x \le 3 \times 10^5$ (in distance terms, $0.12 \le x \le 0.36$ \unit{\metre}). As a reminder, the value of $Re_x$ at the probe where the velocity profile is measured is $\approx 9.51 \times 10^5$ ($x = 1.14$ \unit{\metre}).
+
+The two self-similar solutions that are fitted against the experimental data are an exponential profile and a power law profile (derived from \cite{schlichting1961boundary}). They are in the form:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Exponential profile}: $\displaystyle \frac{\bar{u}}{U_1} = 1-e^{-B\eta}; \quad B = \text{const} \in \mathbb{R}$
+    \item \textbf{Power law profile}: $\displaystyle \frac{\bar{u}}{U_1} = \eta^{1/n}; \quad n = \text{const} \in \mathbb{R_+^*} $
+\end{enumerate}
+The optimal values of $B$ and $n$ were determined using a linear least squares approach and the Normal Equation
+\begin{equation}
+    \mathbf{y} = \mathbf{X}\beta \iff \beta^* = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}
+\end{equation}
+where $\beta^*$ is the optimal value of either $1/n$ or $-B$. Full derivation is shown in Appendix \ref{app:least squares method}.
+
+\underline{Found solutions are}
+\begin{equation}
+    \frac{\bar{u}}{U_1} \approx 1-e^{-4.662\eta}; \qquad \frac{\bar{u}}{U_1} \approx \eta^{1/6.399}
+    \label{eq:solutions}
+\end{equation}
+
+\begin{wrapfigure}{r}{0.48\textwidth}
+    \centering
+    \input{plots/velocity_fits}
+    \caption{Different boundary layer velocity profile trend fits. Exponential Profile and Power Law Profile are the functions listed in (\ref{eq:solutions}). Freestream Reynolds number is $Re_x = 9.51 \times 10^5$.}
+    \label{fig:velocity fits}
+\end{wrapfigure}
+
+The power law profile has a correlation coefficient of $R^2 \approx 0.986$, which is very good. Furthermore, the calculated value of $n \approx 6.399$ is close to the widely accepted empirical value of $n=7$ for zero pressure gradient turbulent boundary layers in the $10^5 \le Re_x \le 10^7$ range (found in \cite{schlichting1961boundary}). Consequentially the experimental results match the 1/7th power law values closely ($R^2 \approx 0.9673)$. From \Cref{fig:velocity fits} the biggest deviations between the Power Law fit and the measured data occurs in the transition between the outer layer and the overlap region (at $\eta \approx 0.35$), but both the outer law profiles and the wall layers closely match. This suggests that the Power Law approximation performs reliably both when viscous or turbulent shear dominate.
+
+The exponential profile has a lower $R^2$ value of $\approx 0.923$. From \Cref{fig:velocity fits} it does not seem to accurately model the speed closer to the wall ($\eta \le 0.3$), especially in the overlap region where viscous shear starts to become important and in the viscous wall sub-layer region where viscous shear dominates. The model could be made much more accurate by removing weightings in the outer layer of the boundary layer ($\eta \gtrapprox 0.4$). There could thus be 2 different models that combine together -- one that approximates the flow where viscous shear is involved (overlap and wall layer), the other where turbulent shear dominates (outer layer).
+
+\subsubsection{\hl{Shape factor etc}}
+
+\subsubsection{Skin friction and wall shear stress}
+\label{sec: skin friction and wall shear stress}
 
 \begin{figure}[!h]
     \centering
-    \begin{overpic}[width=0.9\textwidth]{pictures/Clauser_plot.jpeg}
+    \begin{overpic}[width=0.9\textwidth]{pictures/Clauser_plot.jpg}
         
         % Y-axis label (rotated)
         \put(-4, 20) {\rotatebox{90}{Velocity Ratio $\bar{u}/\bar{U}_{1}$}}
@@ -268,7 +329,32 @@ Due to the high precision of the micrometer, the error in $y$ is very low and er
     \implies \quad U_* &= 0.554 \hspace{0.4em} \unit{\metre \per \second} \nonumber
 \end{align}
 
-The friction velocity $U_*$ is calculated to be approximately 0.554 \unit{\m \per \s}, corresponding to around 4.5\% of the freestream velocity $\bar{U}_1$, which is not a lot. Physically, this parameter serves as a characteristic velocity scale that quantifies the wall shear stress experienced within the boundary layer from friction with the surface. The wall shear stress $\tau_w$ for turbulent flow on the smooth plate was then solved for using the definition of $U_*$ in (\ref{eq:friction velocity}). It was found to be 0.376 \unit{\pascal}, which is quite a bit lower than fore-casted for turbulent boundary layers.
+The friction velocity $U_*$ is calculated to be approximately 0.554 \unit{\m \per \s}, corresponding to around 4.5\% of the freestream velocity $\bar{U}_1$, which is not a lot. Physically, this parameter serves as a characteristic velocity scale that quantifies the wall shear stress experienced within the boundary layer from friction with the surface. The wall shear stress $\tau_w$ for turbulent flow on the smooth plate was then solved for using the definition of $U_*$ in (\ref{eq:friction velocity}). It was found to be 0.376 \unit{\pascal}, which is only 15\% higher than the value of 0.320 \unit{\pascal} listed in \cite{fluid_mechanicsfrankwhite} for turbulent flow over a flat plate at $U_1= 12$ \unit{\metre \per \second} and $Re_x = 10^6$.
+
+\hl{talk about discrepancies if any}
+
+\subsubsection{Logarithmic overlap law of the wall}
+\label{sec: log law}
+
+One of the best models to characterize and correlate turbulent boundary layers is the logarithmic law. The measured velocity profile in \Cref{sec:velocity profile}, using the value of the friction velocity $U_*$ estimated in \Cref{sec: skin friction and wall shear stress}, can be expressed in terms of $u^+ = u/U_*$ and $y^+ = y U_* / \nu$. In the overlap layer, $u^+$ and $y^+$ are related by 
+\begin{equation}
+    u^+ = \frac{1}{\kappa}\ln(y^+) + B
+    \label{eq:log law}
+\end{equation}
+Plotting that data in \Cref{fig:log_law} allows the adherence to the logarithmic overlap law of the wall to be assessed, and the profile characterized by finding the K\'arm\'an and additive constants $\kappa$ and $B$.
+
+\begin{figure}[H]
+    \centering
+    \input{plots/log_law}
+    \caption{Boundary layer profile plotted on a logarithmic curve to verify the law of the wall for $Re_x = 9.51 \times 10^5$. All measurements seem to be taken in the overlap and outer layers.}
+    \label{fig:log_law}
+\end{figure}
+
+From \Cref{fig:log_law} it was found using a least-squares fit that $\kappa \approx 0.509$ and $B \approx 7.591$. This is in reasonable agreement with the standard values $\kappa \approx 0.41$ and $B \approx 5.0$ for a flat plate. Any discrepancies can potentially be explained by the surface roughness of the plate.
+
+It is very difficult to measure the profile closer than 0.5 \unit{\mm} from the plate. Therefore, no clear linear viscous sublayer ($u^+ = y^+$) was observed at low $y^+$. The recorded data primarily captures the logarithmic overlap layer and the outer region of the boundary layer, where the behaviour starts deviating from the log-law due to wake effects and pressure gradients. In \Cref{fig:log_law} this deviation starts happening at $y^+ \approx 350$. This value depends on the Reynolds number of the flow. All the data being recorded in the overlap and outer layers indicates that turbulent shear is very much important in these regions and that viscous shear can be neglected in the fitting models in \Cref{sec: canonical profiles}. It is only in the viscous wall layer that viscous shear dominates (in \Cref{fig:log_law} when $y^+ \lessapprox 7$).
+
+\hl{Talk about Coles' wake law}
 
 \subsubsection{Turbulence intensity}
 
@@ -296,6 +382,11 @@ The relative intensity of velocity fluctuations $u'$ can be found by normalizing
 \end{figure}
 
 \Cref{fig:turbulence_intensity} implies that turbulence intensity is highest at the wall and decreases pretty constantly with height, until it becomes null at the edge of the boundary layer. Velocity oscillations are very high close to the wall because this is where viscous shear stress is highest (see the velocity profile in \Cref{fig:velocity profile} and \Cref{sec:velocity profile}). This viscous shear stress is much higher in turbulent boundary layers than in laminar ones due to the fuller velocity profile and justifies the higher velocity fluctuations $u'$ close to the wall. As the distance between the surface of the plate and the probe increases, viscous shear stress plays less of a role and the turbulence intensity therefore decreases. The velocity fluctuations are now predominately created by the eddies and vorticity present in turbulent flow itself, which form turbulent shear stress.
+
+\subsection{Nature of transition for a smooth leading edge}
+
+
+\subsection{Sensitivity of turbulence in boundary layers}
 
 \section{Conclusions}
 
@@ -343,11 +434,18 @@ This appendix provides a summary of the symbols, descriptions, and abbreviations
         $Re_x$           & Reynolds number of the flow based on distance from the leading edge of the plate.     & $\frac{\rho \bar{U}_1 L}{\mu}$   &             \\
         $\nu$             & Kinematic viscosity of the air.  & $\frac{\mu}{\rho}$    & \unit{\metre \squared \per \second}            \\
         $y$          & Vertical distance between the probe and the surface of the plate.                         &          & \unit{\metre} \\
+        $\delta$          & Thickness of the boundary layer (assume 99\% thickness).                         &          & \unit{\metre}  \\
+        $x$          & Streamwise distance from the leading edge of the plate.                      &          & \unit{\metre}  \\
+        $\eta$          & Non-dimensional distance from the surface of the plate.                         &  $\frac{y}{\delta}$       &   \\
         $C_f$          & Skin friction coefficient.                         &          &  \\
         $U_*$          & Friction velocity.                         &          & \unit{\metre \per \second}  \\
-        $\tau_w$          & Wall shear stress.                         &          & \unit{\newton \per \metre \squared}  \\
+        $\tau_w$          & Wall shear stress.                     &          & \unit{\newton \per \metre \squared}  \\
+        $\delta^*$          & Displacement thickness of the boundary layer.                     &   $\int_{0}^{\infty} \left( 1 - \frac{u}{U_{\infty}} \right) dy$         & \unit{\metre}  \\
+        $\theta$          & Momentum thickness of the boundary layer.                    & $\int_{0}^{\infty} \frac{u}{U_{\infty}} \left( 1 - \frac{u}{U_{\infty}} \right) \, dy$         & \unit{\metre}  \\
+        $H$          & Shape factor of the boundary layer profile.                  &  $\frac{\delta^*}{\theta}$        &   \\
         $X_{turb}$          & Wedge angle of the turbulent wake.                        &          & \unit{\degree}  \\
-        $X_{trans}$          & Wedge of the turbulent and intermittent wake.                        &          & \unit{\degree}  \\
+        $X_{trans}$          & Wedge of the turbulent and intermittent wake.           &          & \unit{\degree}  \\
+        $R^2$          & Coefficient of determination           &          &   \\
         % \addlinespace
         % \textbf{Vectors (in $\mathbb{R}^3$}) &                                     &          &                             \\
         % $\mathbf{F_n}$    & External force on the gyroscope/rotor assembly.         &          & \unit{\newton} (\unit{\kg \m \per \second \squared}) \\
@@ -361,5 +459,40 @@ This appendix provides a summary of the symbols, descriptions, and abbreviations
         \bottomrule
     \end{tabularx}
 \end{table}
+
+\section{Numerical Derivation of the Boundary Layer Parameters}
+\Crefname{section}{Appendix}{Appendices}
+\label{app:least squares method}
+
+To determine the constants n and B for the power law and exponential velocity profiles, the models are linearized using logarithmic transformations to take the form $\mathbf{y} = \mathbf{X}\beta$. The optimal parameter $\beta^*$ is found by minimizing the sum of squared residuals, satisfying the Normal Equation:
+\begin{equation*}
+    \mathbf{X}^{T}\mathbf{X}\,\beta^* = \mathbf{X}^{T}\mathbf{y} \implies \beta^* = (\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}
+\end{equation*}
+
+Both the models used are single-parameter so $\mathbf{X}$ is a column vector of the independent variables $x_i(\eta_i)$ and $\mathbf{y}$ is the vector of dependent variables $y_i\bigg( \frac{\bar{u}}{U_1}_i\bigg)$.
+
+\subsubsection{Power Law Model}
+
+The power law model is in the form $\bar{u}/U_1=\eta^{1/n}$. Taking the natural logarithm linearizes the relationship:
+\begin{equation*}
+    \ln\left(\frac{\bar{u}}{U_1}\right) = \frac{1}{n} \ln(\eta)
+\end{equation*}
+
+$\mathbf{y}$ is therefore the log-velocity vector $y_i = \ln\bigg( \frac{\bar{u}}{U_1}_i\bigg)$ and the matrix $\mathbf{X}$ is in the form $x_i = \ln(\eta_i)$. Using the experimental data, solving for $\beta^*=1/n$ yields $\beta^*=0.154$. Therefore
+\begin{equation*}
+    n=\frac{1}{\beta^*}\approx 6.399
+\end{equation*}
+
+\subsubsection{Exponential Model}
+
+The exponential model is in the form $\frac{\bar{u}}{U_1} = 1-e^{-B\eta}$. This is linearized as:
+\begin{equation*}
+    \ln\left(1 - \frac{\bar{u}}{U_1}\right) = -B\eta
+\end{equation*}
+
+Here, $\mathbf{y}$ is in the form $y_i = \ln\left(1 - \frac{\bar{u}}{U_1}_i\right)$ and $\mathbf{X}$ is $x_i = \eta_i$. Solving for $\beta^*=-B$ yields $\beta^*=4.6624$. Thus:
+\begin{equation*}
+    B = -\beta^* \approx 4.662
+\end{equation*}
 
 \end{document}
