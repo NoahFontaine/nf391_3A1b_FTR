@@ -68,6 +68,8 @@ The main aims and objectives of this lab are to:
     \item Derive estimates for the skin friction coefficient based on the mean velocity profiles, thereby evaluating the impact of flow state on wall shear stress.
 \end{itemize}
 
+\hl{Add FTR Objectives!!}
+
 \section{Experimental Methodology}
 
 \subsection{Calibration and Instrumentation}
@@ -101,6 +103,7 @@ Lastly, the boundary layer velocity profile is characterized for the tripped flo
 \subsection{Observation of transition}
 
 \subsubsection{Flow development with Reynolds Number}
+\label{sec: flow development with Reynolds Number}
 
 \begin{figure}[htbp]
      \centering
@@ -336,7 +339,7 @@ The friction velocity $U_*$ is calculated to be approximately 0.554 \unit{\m \pe
 \subsubsection{Logarithmic overlap law of the wall}
 \label{sec: log law}
 
-One of the best models to characterize and correlate turbulent boundary layers is the logarithmic law. The measured velocity profile in \Cref{sec:velocity profile}, using the value of the friction velocity $U_*$ estimated in \Cref{sec: skin friction and wall shear stress}, can be expressed in terms of $u^+ = u/U_*$ and $y^+ = y U_* / \nu$. In the overlap layer, $u^+$ and $y^+$ are related by 
+The turbulent boundary layer is further characterized through comparison with the logarithmic law of the wall, which usually provides more successful and widely validated descriptions of the mean velocity profile in turbulent flows. The measured velocity profile in \Cref{sec:velocity profile}, using the value of the friction velocity $U_*$ estimated in \Cref{sec: skin friction and wall shear stress}, can be expressed in terms of $u^+ = u/U_*$ and $y^+ = y U_* / \nu$. In the overlap layer, $u^+$ and $y^+$ are related by 
 \begin{equation}
     u^+ = \frac{1}{\kappa}\ln(y^+) + B
     \label{eq:log law}
@@ -385,6 +388,14 @@ The relative intensity of velocity fluctuations $u'$ can be found by normalizing
 
 \subsection{Nature of transition for a smooth leading edge}
 
+While the transition from laminar to turbulent flow on a smooth leading edge or any streamlined body is inherently a stochastic process, its onset is governed by the growth of instabilities within the boundary layer as the local Reynolds number, $Re_x$, increases. It is clearly demonstrated in \Cref{fig:turbulent transition} that, for a given set of environmental conditions (such as surface roughness, pressure-gradients, shape of the body or external disturbances), the transition is not arbitrary. It is instead characterized by a deterministic critical Reynolds number ($Re_{cr}$). This value remains constant for a specific flow configuration, representing the point where the boundary layer's internal instabilities overcome viscous damping, triggering the the breakdown into turbulence. Interestingly, this breakdown is inevitable, as there will always be a critical Reynolds number $Re_{cr}$ when transition will occur and the formation of turbulent eddies becomes exponentially unstable \cite{schlichting1961boundary}.
+
+For a smooth flat plate with no pressure gradient, the boundary layer is likely to transition from laminar to turbulent without first undergoing any separation, as was the case in this experiment. \Cref{sec: flow development with Reynolds Number} showed the critical Reynolds number ($Re_{cr}$) for a flat plate to be in the range $1 \times 10^6$ to $2 \times 10^6$. For $Re_x < Re_{cr}$, the viscous forces are sufficient to damp small disturbances (mainly Tollmien-Schlichting waves (T-S) \cite{emmons1951spots}), causing them to decay over time. T-S waves are small two-dimensional waves that oscillate with small amplitude, caused by vorticity. However, once the flow surpasses $Re_{cr}$, the T-S waves reach a critical frequency that cannot be damped out by the boundary layer. They become exponentially amplified and breakdown into three-dimensional structures known as $\lambda$-vortices. The velocity profile is now unstable and high-frequency turbulent sports known as Emmons spots start to appear and merge stochastically \cite{emmons1951spots}. After some point, they have merged and grown so much that the boundary layer is considered fully turbulent.
+
+
+
+4.1.2 Separation-Induced Transition and the Laminar Separation Bubble (LSB)On many airfoils, especially at moderate Reynolds numbers, transition is triggered by an adverse pressure gradient (APG) shortly after the suction peak. If the laminar boundary layer lacks sufficient momentum to overcome the rising pressure, it undergoes laminar separation.As shown in Figure 4-2, the resulting detached shear layer is highly unstable. In the absence of a wall, turbulent fluctuations amplify rapidly, promoting a "burst" of turbulence that enhances momentum exchange with the freestream. This increased kinetic energy allows the flow to overcome the pressure gradient and reattach to the surface. This localized region of recirculating flow is termed a Laminar Separation Bubble (LSB). In this context, the LSB acts as a "forced" transition mechanism, where the transition is a prerequisite for reattachment rather than a gradual evolution.4.1.3 Influence of Pressure GradientsThe location of the transition point is highly sensitive to the pressure distribution shown in Figure 4-1:Favorable Pressure Gradients (FPG): Occurring toward the leading edge, these serve to "stabilize" the laminar flow, delaying $Re_{cr}$.Adverse Pressure Gradients (APG): Conversely, as the flow nears the trailing edge or passes the suction peak, the APG destabilizes the velocity profile, drastically reducing the distance required for T-S wave breakdown or inducing the aforementioned separation-induced transition.
+
 
 \subsection{Sensitivity of turbulence in boundary layers}
 
@@ -416,7 +427,7 @@ Unless stated otherwise, all Figures are from author.
 
 This appendix provides a summary of the symbols, descriptions, and abbreviations used throughout this report.
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \begin{tabularx}{\textwidth}{l X l l}
         \toprule
